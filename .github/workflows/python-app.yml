@@ -13,6 +13,7 @@ permissions:
   contents: read
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     defaults:
@@ -133,6 +134,8 @@ jobs:
     - name: Tests
       run: |
           poetry run task test
+concurrency:
+    group: some-group-name
 
 
             
