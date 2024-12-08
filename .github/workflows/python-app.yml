@@ -13,13 +13,13 @@ permissions:
   contents: read
 
 jobs:
-  example_matrix:
+
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-  build:
-    runs-on: ${{ matrix.os }}
+
     defaults:
       run:
         working-directory: ./example-app
@@ -42,6 +42,9 @@ jobs:
         key: ${{ runner.os }}-venv
   lint:
     runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
@@ -66,6 +69,9 @@ jobs:
     needs: build
   format:
     runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
@@ -93,6 +99,9 @@ jobs:
 
   security:
     runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
@@ -120,6 +129,9 @@ jobs:
           
   test:
     runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     defaults:
       run:
         working-directory: ./example-app
