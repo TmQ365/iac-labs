@@ -13,8 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-
+  build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,15 +24,30 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.4.1
     - name: install deps
       run: poetry install --no-root
     - name: Cache build venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: /home/runner/work/iac-labs/iac-labs/example-app/.venv
+        key: ${{ runner.os }}-venv
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./example-app
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    - name: Install Poetry Action
+      uses: snok/install-poetry@v1.4.1
+    - name: Recover build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
@@ -54,15 +68,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.4.1
     - name: install deps
       run: poetry install --no-root
-    - name: Cache build venv
+    - name: Recover build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
@@ -84,15 +94,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.4.1
     - name: install deps
       run: poetry install --no-root
-    - name: Cache build venv
+    - name: Recover build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
@@ -114,15 +120,11 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.11"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install Poetry Action
       uses: snok/install-poetry@v1.4.1
     - name: install deps
       run: poetry install --no-root
-    - name: Cache build venv
+    - name: Recover build venv
       id: cached-poetry-dependencies
       uses: actions/cache@v3
       with:
