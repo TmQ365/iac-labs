@@ -156,8 +156,6 @@ jobs:
       run: |
           poetry run task test
     needs: [format, security, lint]
-concurrency:
-    group: some-group-name
 
 
             
